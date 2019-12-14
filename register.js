@@ -16,15 +16,8 @@ function registerPromiseWorker (callback) {
       }
     }
     if (error) {
-      /* istanbul ignore else */
-      if (typeof console !== 'undefined' && 'error' in console) {
-        // This is to make errors easier to debug. I think it's important
-        // enough to just leave here without giving the user an option
-        // to silence it.
-        console.error('Worker caught an error:', error)
-      }
       postMessage([messageId, {
-        message: error.message
+        message: error.stack
       }])
     } else {
       postMessage([messageId, null, result])
